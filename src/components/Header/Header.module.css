@@ -1,0 +1,17 @@
+.menu {
+    height: 60px;
+    padding: 20px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+    
+    .link {
+      color: #fff;
+      text-transform: uppercase;
+      width: 200px;
+      font-weight: 700;
+      text-decoration: none;
+    
+    }
