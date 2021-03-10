@@ -24,9 +24,9 @@ function App() {
       <Header></Header>
       <Suspense fallback={<Loader />}>
         <Switch>
-          <Route path={routes.home} component={HomePage} />
-          <Route path={routes.movies} component={MoviesPage} />
+          <Route exact path={routes.home} component={HomePage} />
           <Route path={routes.movieDetails} component={MovieDetailsPage} />
+          <Route path={routes.movies} component={MoviesPage} />
           <Redirect to={routes.home} />
         </Switch>
       </Suspense>
@@ -35,4 +35,3 @@ function App() {
 }
 
 export default App;
-
