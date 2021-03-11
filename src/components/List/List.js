@@ -2,10 +2,10 @@ import React from "react";
 import { Link } from "react-router-dom";
 import routes from "../../routes";
 
-const List = ({ popularMovies, url }) => {
+const List = ({ movies }) => {
   return (
     <ul>
-      {popularMovies.map((movie) => (
+      {movies.map((movie) => (
         <li key={movie.id}>
           <Link to={`${routes.movies}/${movie.id}`}>
             {movie.original_title ? movie.original_title : movie.name}

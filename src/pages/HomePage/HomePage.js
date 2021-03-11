@@ -16,12 +16,12 @@ class HomePage extends Component {
     this.setState({ popularMovies: response.data.results });
   }
   render() {
-    const { url } = this.props.match;
+    // const { url } = this.props.match;
     const { popularMovies } = this.state;
     return (
       <>
         <h2>Trending today</h2>
-        <List url={url} popularMovies={popularMovies} />
+        <List movies={popularMovies} />
       </>
     );
   }
