@@ -38,7 +38,10 @@ const MovieDetailsPage = () => {
     setMovieDetails(movie);
     setIsLoad(false);
   };
-  useEffect(() => movieIdData(), []);
+  // useEffect(() => {
+  //   movieIdData();
+
+  // }, []);
 
   const movieCredits = async () => {
     const {
@@ -50,7 +53,7 @@ const MovieDetailsPage = () => {
     );
     setCredits(cast);
   };
-  useEffect(() => movieCredits(), []);
+  // useEffect(() => movieCredits(), []);
 
   const movieReviews = async () => {
     const {
@@ -62,7 +65,13 @@ const MovieDetailsPage = () => {
     );
     setReviews(results);
   };
-  useEffect(() => movieReviews(), []);
+  // useEffect(() => movieReviews(), []);
+
+  useEffect(() => {
+    movieIdData();
+    movieCredits();
+    movieReviews();
+  }, []);
 
   console.log(reviews);
   // console.log(movieDetails.poster_path);
