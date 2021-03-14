@@ -1,10 +1,9 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   useHistory,
   useLocation,
   useParams,
   useRouteMatch,
-  NavLink,
   Route,
 } from "react-router-dom";
 import { withCreadentials } from "../../helpers/request";
@@ -13,6 +12,9 @@ import Cast from "../../components/Cast/Cast";
 import axios from "axios";
 import routes from "../../routes";
 import Reviews from "../../components/Reviews/Reviews";
+import MoviePreview from "../../components/MoviePreview/MoviePreview";
+import Button from "../../components/Button/Button";
+import AdditionalInfo from "../../components/AdditionalInfo/AdditionalInfo";
 
 const MovieDetailsPage = () => {
   const match = useRouteMatch();
@@ -28,9 +30,7 @@ const MovieDetailsPage = () => {
   const [credits, setCredits] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [isLoad, setIsLoad] = useState(true);
-  // const [backdrop_path, setBackdrop_path] = useState(
-  //   `/kqjL17yufvn9OVLyXYpvtyrFfak.jpg`
-  // );
+
   const movieIdData = async () => {
     const { data: movie } = await axios.get(
       withCreadentials(`https://api.themoviedb.org/3/movie/${params.movieId}?`)
@@ -81,40 +81,13 @@ const MovieDetailsPage = () => {
         <Loader />
       ) : (
         <>
-          <button>
-            <span>&larr; </span>Go back
-          </button>
-          <div>
-            <div>
-              {urlIMG && (
-                <img src={`https://image.tmdb.org/t/p/w500${urlIMG}`} alt="" />
-              )}
-            </div>
-            <h2>
-              {movieDetails.original_title}
-              <span>({movieDetails.release_date.slice(0, 4)})</span>
-            </h2>
-            <p>User score: {movieDetails.vote_average * 10}%</p>
-            <h3>Overview</h3>
-            <p>{movieDetails.overview}</p>
-            <h3>Genres</h3>
-            <ul>
-              {movieGenre.map((genre) => (
-                <li key={genre.id}>{genre.name}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h5>Additional information</h5>
-            <ul>
-              <li>
-                <NavLink to={`${match.url}/cast`}>Cast</NavLink>
-              </li>
-              <li>
-                <NavLink to={`${match.url}/reviews`}>Reviews</NavLink>
-              </li>
-            </ul>
-          </div>
+          <Button />
+          <MoviePreview
+            urlIMG={urlIMG}
+            movieDetails={movieDetails}
+            movieGenre={movieGenre}
+          />
+          <AdditionalInfo />
           <Route
             path={routes.movieCast}
             render={(props) => <Cast {...props} credits={credits} />}
@@ -130,26 +103,3 @@ const MovieDetailsPage = () => {
 };
 
 export default MovieDetailsPage;
-
-// class MovieDetailsPage extends Component {
-//   state = {
-//     genres: null,
-//     id: null,
-//     backdrop_path: null,
-//   };
-
-//   async componentDidMount() {
-//     const { movieId } = this.props.match.params;
-
-//     const response = await axios.get(
-//       withCreadentials(`https://api.themoviedb.org/3/movie/${movieId}?`)
-//     );
-//     this.setState({ ...response.data });
-//   }
-//   render() {
-//     console.log(this.state);
-//     return <div></div>;
-//   }
-// }
-
-// export default MovieDetailsPage;
