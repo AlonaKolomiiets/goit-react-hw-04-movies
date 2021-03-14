@@ -38,10 +38,9 @@ const MovieDetailsPage = () => {
     setMovieDetails(movie);
     setIsLoad(false);
   };
-  // useEffect(() => {
-  //   movieIdData();
-
-  // }, []);
+  useEffect(() => {
+    movieIdData();
+  }, []);
 
   const movieCredits = async () => {
     const {
@@ -53,7 +52,6 @@ const MovieDetailsPage = () => {
     );
     setCredits(cast);
   };
-  // useEffect(() => movieCredits(), []);
 
   const movieReviews = async () => {
     const {
@@ -65,15 +63,13 @@ const MovieDetailsPage = () => {
     );
     setReviews(results);
   };
-  // useEffect(() => movieReviews(), []);
 
   useEffect(() => {
-    movieIdData();
     movieCredits();
     movieReviews();
   }, []);
 
-  console.log(reviews);
+  console.log(movieDetails);
   // console.log(movieDetails.poster_path);
   // console.log(params.movieId);
   // console.log(match.url);
@@ -85,14 +81,19 @@ const MovieDetailsPage = () => {
         <Loader />
       ) : (
         <>
-          <button>Go back</button>
+          <button>
+            <span>&larr; </span>Go back
+          </button>
           <div>
             <div>
               {urlIMG && (
                 <img src={`https://image.tmdb.org/t/p/w500${urlIMG}`} alt="" />
               )}
             </div>
-            <h2>{movieDetails.original_title}</h2>
+            <h2>
+              {movieDetails.original_title}
+              <span>({movieDetails.release_date.slice(0, 4)})</span>
+            </h2>
             <p>User score: {movieDetails.vote_average * 10}%</p>
             <h3>Overview</h3>
             <p>{movieDetails.overview}</p>
@@ -116,9 +117,12 @@ const MovieDetailsPage = () => {
           </div>
           <Route
             path={routes.movieCast}
-            render={() => <Cast credits={credits} />}
+            render={(props) => <Cast {...props} credits={credits} />}
           />
-          <Route path={routes.movieDetailsReviews} component={Reviews} />
+          <Route
+            path={routes.movieDetailsReviews}
+            render={(props) => <Reviews {...props} reviews={reviews} />}
+          />
         </>
       )}
     </>
