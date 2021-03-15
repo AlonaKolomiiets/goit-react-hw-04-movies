@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./MoviePreview.module.css";
 
-const MoviePreview = ({  movieDetails }) => {
+const MoviePreview = ({ movieDetails }) => {
   console.log("movieDetails", movieDetails);
   const movieGenre = movieDetails.genres || [];
   const urlIMG = movieDetails.backdrop_path || movieDetails.poster_path;

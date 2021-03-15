@@ -1,6 +1,5 @@
-import axios from "axios";
 import React, { Component } from "react";
-import { withCreadentials } from "../../helpers/request";
+import { getPopularMovies } from "../../helpers/request";
 import List from "../../components/List/List";
 
 class HomePage extends Component {
@@ -9,15 +8,10 @@ class HomePage extends Component {
   };
 
   async componentDidMount() {
-    const response = await axios.get(
-      withCreadentials("https://api.themoviedb.org/3/trending/all/day?")
-
-    );
-    //console.log(response.data.results);
-    this.setState({ popularMovies: response.data.results });
+    const { data } = await getPopularMovies();
+    this.setState({ popularMovies: data.results });
   }
   render() {
-    // const { url } = this.props.match;
     const { popularMovies } = this.state;
     return (
       <>
@@ -29,5 +23,3 @@ class HomePage extends Component {
 }
 
 export default HomePage;
-
-// https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key>>

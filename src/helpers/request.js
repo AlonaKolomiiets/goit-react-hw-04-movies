@@ -8,14 +8,25 @@ export const withCreadentials = (url) => {
   return `${url}api_key=${apiKey}`;
 };
 
-// export const request = async (method, url, body) => {
-//   const result = await axios[method](url, body);
-//   return result.data;
-// };
+export const getPopularMovies = () =>
+  axios.get(withCreadentials("https://api.themoviedb.org/3/trending/all/day?"));
 
-// export const createSingleUserUrl = (path) => {
-//   return withCreadentials(`https://api.github.com/users/${path}?`);
-// };
+export const getMovieDetails = (movieId) =>
+  axios.get(withCreadentials(`https://api.themoviedb.org/3/movie/${movieId}?`));
 
+export const getMovieDetailsCredits = (movieId) =>
+  axios.get(
+    withCreadentials(`https://api.themoviedb.org/3/movie/${movieId}/credits?`)
+  );
 
-// https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key>>
+export const getMovieDetailsReviews = (movieId) =>
+  axios.get(
+    withCreadentials(`https://api.themoviedb.org/3/movie/${movieId}/reviews?`)
+  );
+
+export const getMovieSearch = (query) =>
+  axios.get(
+    withCreadentials(
+      `https://api.themoviedb.org/3/search/movie?query=${query}&`
+    )
+  );

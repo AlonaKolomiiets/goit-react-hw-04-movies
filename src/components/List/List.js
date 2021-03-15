@@ -4,8 +4,6 @@ import routes from "../../routes";
 
 const List = ({ movies }) => {
   const location = useLocation();
-  // console.log("movies",movies);
-  // console.log("location2", location);
   return (
     <ul>
       {movies.map((movie) => (

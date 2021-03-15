@@ -2,8 +2,6 @@ import React from "react";
 import styles from "./Button.module.css";
 
 const Button = ({ handleGoBack }) => {
-  // console.log(history);
-
   return (
     <button
       onClick={handleGoBack}

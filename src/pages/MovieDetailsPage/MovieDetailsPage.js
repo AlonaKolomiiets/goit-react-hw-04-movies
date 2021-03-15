@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useLocation, useParams, Route } from "react-router-dom";
-import { withCreadentials } from "../../helpers/request";
+import routes from "../../routes";
+import {
+  getMovieDetails,
+  getMovieDetailsCredits,
+  getMovieDetailsReviews,
+} from "../../helpers/request";
 import Loader from "../../components/Loader/Loader";
 import Cast from "../../components/Cast/Cast";
-import axios from "axios";
-import routes from "../../routes";
 import Reviews from "../../components/Reviews/Reviews";
 import MoviePreview from "../../components/MoviePreview/MoviePreview";
 import Button from "../../components/Button/Button";
@@ -12,30 +15,21 @@ import AdditionalInfo from "../../components/AdditionalInfo/AdditionalInfo";
 
 const MovieDetailsPage = () => {
   const params = useParams();
-
-  // console.log('match',match);
-  // console.log('params',params);
-  // console.log("history", history);
-  // console.log("location", location);
-
   const [movieDetails, setMovieDetails] = useState({});
   const [credits, setCredits] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [isLoad, setIsLoad] = useState(true);
-  const [isError, setError] = useState(undefined);
+  const [isError, setIsError] = useState(false);
+  const { movieId } = params;
 
   const movieIdData = async () => {
     try {
-      const { data: movie } = await axios.get(
-        withCreadentials(
-          `https://api.themoviedb.org/3/movie/${params.movieId}?`
-        )
-      );
+      const { data: movie } = await getMovieDetails(movieId);
       setMovieDetails(movie);
-      setIsLoad(false);
     } catch (error) {
-      setError(error.message);
-      // setIsLoad(false);
+      setIsError(true);
+    } finally {
+      setIsLoad(false);
     }
   };
 
@@ -47,11 +41,7 @@ const MovieDetailsPage = () => {
     try {
       const {
         data: { cast },
-      } = await axios.get(
-        withCreadentials(
-          `https://api.themoviedb.org/3/movie/${params.movieId}/credits?`
-        )
-      );
+      } = await getMovieDetailsCredits(movieId);
       setCredits(cast);
     } catch (error) {
       console.log(error);
@@ -62,11 +52,8 @@ const MovieDetailsPage = () => {
     try {
       const {
         data: { results },
-      } = await axios.get(
-        withCreadentials(
-          `https://api.themoviedb.org/3/movie/${params.movieId}/reviews?`
-        )
-      );
+      } = await getMovieDetailsReviews(movieId);
+
       setReviews(results);
     } catch (error) {
       console.log(error);
@@ -80,7 +67,6 @@ const MovieDetailsPage = () => {
 
   const history = useHistory();
   const location = useLocation();
-  // console.log(location.state.from, location.state.from);
   const handleGoBack = () => {
     // location.state && location.state.from
     //   ? history.push(location.state.from)
@@ -91,8 +77,10 @@ const MovieDetailsPage = () => {
   return (
     <>
       <Button handleGoBack={handleGoBack} />
-      {isError && <h1>NOT FOUND</h1>}
-      {isLoad ? (
+
+      {isError ? (
+        <h1>NOT FOUND</h1>
+      ) : isLoad ? (
         <Loader />
       ) : (
         <>

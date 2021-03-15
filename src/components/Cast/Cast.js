@@ -1,4 +1,4 @@
-import React , { PropTypes }from "react";
+import React, { PropTypes } from "react";
 
 const Cast = ({ credits }) => {
   return (
@@ -21,7 +21,3 @@ const Cast = ({ credits }) => {
 //     message: "No feedback given",
 //   };
 export default Cast;
-
-
-
-
