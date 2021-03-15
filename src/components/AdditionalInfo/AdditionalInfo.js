@@ -3,7 +3,7 @@ import { NavLink, useRouteMatch } from "react-router-dom";
 
 const AdditionalInfo = () => {
   const match = useRouteMatch();
-  console.log("match", match);
+  // console.log("match", match);
   return (
     <div>
       <h5>Additional information</h5>

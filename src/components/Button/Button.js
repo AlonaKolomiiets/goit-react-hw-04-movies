@@ -1,10 +1,20 @@
 import React from "react";
-import styles from "./Button.module.css"
+import styles from "./Button.module.css";
 
-const Button = () => {
+const Button = ({ handleGoBack }) => {
+  // console.log(history);
+
   return (
-    <button className={styles.btnArrowBack}>
-      <span className={styles.btnSpanArrowBack} role="img" aria-label="arrow back">
+    <button
+      onClick={handleGoBack}
+      type="button"
+      className={styles.btnArrowBack}
+    >
+      <span
+        className={styles.btnSpanArrowBack}
+        role="img"
+        aria-label="arrow back"
+      >
         ⬅ Go back
       </span>
     </button>

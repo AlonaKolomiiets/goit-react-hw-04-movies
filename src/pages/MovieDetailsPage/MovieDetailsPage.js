@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  useHistory,
-  useLocation,
-  useParams,
-  useRouteMatch,
-  Route,
-} from "react-router-dom";
+import { useHistory, useLocation, useParams, Route } from "react-router-dom";
 import { withCreadentials } from "../../helpers/request";
 import Loader from "../../components/Loader/Loader";
 import Cast from "../../components/Cast/Cast";
@@ -17,10 +11,8 @@ import Button from "../../components/Button/Button";
 import AdditionalInfo from "../../components/AdditionalInfo/AdditionalInfo";
 
 const MovieDetailsPage = () => {
-  const match = useRouteMatch();
   const params = useParams();
-  const history = useHistory();
-  const location = useLocation();
+
   // console.log('match',match);
   // console.log('params',params);
   // console.log("history", history);
@@ -69,10 +61,17 @@ const MovieDetailsPage = () => {
     movieReviews();
   }, []);
 
-  console.log(movieDetails);
-  // console.log(movieDetails.poster_path);
-  // console.log(params.movieId);
-  // console.log(match.url);
+  const history = useHistory();
+  const location = useLocation();
+  // console.log(location.state.from, location.state.from);
+  const handleGoBack = () => {
+    // location.state && location.state.from
+    //   ? history.push(location.state.from)
+    //   : history.push(routes.home);
+
+    history.push(location?.state?.from || routes.home);
+  };
+
   const movieGenre = movieDetails.genres || [];
   const urlIMG = movieDetails.backdrop_path || movieDetails.poster_path;
   return (
@@ -81,7 +80,7 @@ const MovieDetailsPage = () => {
         <Loader />
       ) : (
         <>
-          <Button />
+          <Button handleGoBack={handleGoBack} />
           <MoviePreview
             urlIMG={urlIMG}
             movieDetails={movieDetails}
