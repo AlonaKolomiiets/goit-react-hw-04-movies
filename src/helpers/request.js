@@ -8,14 +8,14 @@ export const withCreadentials = (url) => {
   return `${url}api_key=${apiKey}`;
 };
 
-export const request = async (method, url, body) => {
-  const result = await axios[method](url, body);
-  return result.data;
-};
+// export const request = async (method, url, body) => {
+//   const result = await axios[method](url, body);
+//   return result.data;
+// };
 
-export const createSingleUserUrl = (path) => {
-  return withCreadentials(`https://api.github.com/users/${path}?`);
-};
+// export const createSingleUserUrl = (path) => {
+//   return withCreadentials(`https://api.github.com/users/${path}?`);
+// };
 
 
 // https://api.themoviedb.org/3/trending/all/day?api_key=<<api_key>>

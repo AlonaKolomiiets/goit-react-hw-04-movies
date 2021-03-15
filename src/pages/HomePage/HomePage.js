@@ -11,6 +11,7 @@ class HomePage extends Component {
   async componentDidMount() {
     const response = await axios.get(
       withCreadentials("https://api.themoviedb.org/3/trending/all/day?")
+
     );
     //console.log(response.data.results);
     this.setState({ popularMovies: response.data.results });

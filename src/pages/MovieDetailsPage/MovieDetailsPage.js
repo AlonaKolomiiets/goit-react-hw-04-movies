@@ -22,38 +22,55 @@ const MovieDetailsPage = () => {
   const [credits, setCredits] = useState([]);
   const [reviews, setReviews] = useState([]);
   const [isLoad, setIsLoad] = useState(true);
+  const [isError, setError] = useState(undefined);
 
   const movieIdData = async () => {
-    const { data: movie } = await axios.get(
-      withCreadentials(`https://api.themoviedb.org/3/movie/${params.movieId}?`)
-    );
-    setMovieDetails(movie);
-    setIsLoad(false);
+    try {
+      const { data: movie } = await axios.get(
+        withCreadentials(
+          `https://api.themoviedb.org/3/movie/${params.movieId}?`
+        )
+      );
+      setMovieDetails(movie);
+      setIsLoad(false);
+    } catch (error) {
+      setError(error.message);
+      // setIsLoad(false);
+    }
   };
+
   useEffect(() => {
     movieIdData();
   }, []);
 
   const movieCredits = async () => {
-    const {
-      data: { cast },
-    } = await axios.get(
-      withCreadentials(
-        `https://api.themoviedb.org/3/movie/${params.movieId}/credits?`
-      )
-    );
-    setCredits(cast);
+    try {
+      const {
+        data: { cast },
+      } = await axios.get(
+        withCreadentials(
+          `https://api.themoviedb.org/3/movie/${params.movieId}/credits?`
+        )
+      );
+      setCredits(cast);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const movieReviews = async () => {
-    const {
-      data: { results },
-    } = await axios.get(
-      withCreadentials(
-        `https://api.themoviedb.org/3/movie/${params.movieId}/reviews?`
-      )
-    );
-    setReviews(results);
+    try {
+      const {
+        data: { results },
+      } = await axios.get(
+        withCreadentials(
+          `https://api.themoviedb.org/3/movie/${params.movieId}/reviews?`
+        )
+      );
+      setReviews(results);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
@@ -71,21 +88,15 @@ const MovieDetailsPage = () => {
 
     history.push(location?.state?.from || routes.home);
   };
-
-  const movieGenre = movieDetails.genres || [];
-  const urlIMG = movieDetails.backdrop_path || movieDetails.poster_path;
   return (
     <>
+      <Button handleGoBack={handleGoBack} />
+      {isError && <h1>NOT FOUND</h1>}
       {isLoad ? (
         <Loader />
       ) : (
         <>
-          <Button handleGoBack={handleGoBack} />
-          <MoviePreview
-            urlIMG={urlIMG}
-            movieDetails={movieDetails}
-            movieGenre={movieGenre}
-          />
+          <MoviePreview movieDetails={movieDetails} />
           <AdditionalInfo />
           <Route
             path={routes.movieCast}
