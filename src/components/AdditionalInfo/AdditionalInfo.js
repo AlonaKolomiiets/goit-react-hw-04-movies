@@ -13,7 +13,8 @@ const AdditionalInfo = () => {
           <NavLink
             to={{
               pathname: `${match.url}/cast`,
-              state: { from: location },
+              // state: { from: location },
+              state: { from: location.state?.from },
             }}
           >
             Cast
@@ -23,7 +24,8 @@ const AdditionalInfo = () => {
           <NavLink
             to={{
               pathname: `${match.url}/reviews`,
-              state: { from: location },
+              // state: { from: location },
+              state: { from: location.state?.from },
             }}
           >
             Reviews
