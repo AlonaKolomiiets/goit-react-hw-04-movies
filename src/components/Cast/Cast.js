@@ -2,8 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./Cast.module.css";
 
-const Cast = ({ credits }) => {
+const Cast = ({ credits, location, history }) => {
   // console.log(credits);
+  console.log(history);
+  console.log(location);
   return (
     <ul className={styles.list}>
       {credits.map((actor) => (
@@ -41,3 +43,5 @@ Cast.propTypes = {
   ),
 };
 export default Cast;
+
+

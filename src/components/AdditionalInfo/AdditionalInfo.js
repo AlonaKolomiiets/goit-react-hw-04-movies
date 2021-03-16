@@ -1,18 +1,33 @@
 import React from "react";
-import { NavLink, useRouteMatch } from "react-router-dom";
+import { NavLink, useRouteMatch, useLocation } from "react-router-dom";
 import styles from "./AdditionalInfo.module.css";
 
 const AdditionalInfo = () => {
+  const location = useLocation();
   const match = useRouteMatch();
   return (
     <div>
       <h5 className={styles.title}>Additional information</h5>
       <ul className={styles.list}>
         <li className={styles.listItem}>
-          <NavLink to={`${match.url}/cast`}>Cast</NavLink>
+          <NavLink
+            to={{
+              pathname: `${match.url}/cast`,
+              state: { from: location },
+            }}
+          >
+            Cast
+          </NavLink>
         </li>
         <li className={styles.listItem}>
-          <NavLink to={`${match.url}/reviews`}>Reviews</NavLink>
+          <NavLink
+            to={{
+              pathname: `${match.url}/reviews`,
+              state: { from: location },
+            }}
+          >
+            Reviews
+          </NavLink>
         </li>
       </ul>
     </div>
