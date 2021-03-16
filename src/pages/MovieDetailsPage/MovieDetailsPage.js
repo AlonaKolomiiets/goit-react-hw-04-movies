@@ -26,7 +26,7 @@ const MovieDetailsPage = () => {
   const [movieDetails, setMovieDetails] = useState({});
   const [credits, setCredits] = useState([]);
   const [reviews, setReviews] = useState([]);
-  const [from, setFrom] = useState({});
+  // const [from, setFrom] = useState({});
   const [isLoad, setIsLoad] = useState(true);
   const [isError, setIsError] = useState(false);
   const { movieId } = params;
@@ -72,7 +72,7 @@ const MovieDetailsPage = () => {
   useEffect(() => {
     movieCredits();
     movieReviews();
-    setFrom(location?.state?.from);
+    // setFrom(location?.state?.from);
   }, []);
 
   const handleGoBack = () => {
@@ -80,7 +80,7 @@ const MovieDetailsPage = () => {
     //   ? history.push(location.state.from)
     //   : history.push(routes.home);
 
-    history.push(from || routes.home);
+    history.push(location?.state?.from || routes.home);
   };
   return (
     <>
