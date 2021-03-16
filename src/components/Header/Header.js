@@ -14,8 +14,8 @@ const linkStyles = {
 };
 const Header = () => {
   return (
-    <AppBar position="static" className={styles.menu}>
-      <Toolbar variant="dense">
+    <AppBar position="static" >
+      <Toolbar variant="dense" className={styles.menu}>
         <NavLink
           exact
           to={routes.home}

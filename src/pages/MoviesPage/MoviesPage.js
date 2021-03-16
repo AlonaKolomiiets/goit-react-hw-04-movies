@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory, useLocation } from "react-router-dom";
 import { getMovieSearch } from "../../helpers/request";
 import List from "../../components/List/List";
+import styles from "./MoviesPage.module.css";
 
 const MoviesPage = () => {
   const [search, setSearch] = useState("");
@@ -40,7 +41,7 @@ const MoviesPage = () => {
 
   return (
     <div>
-      <form onSubmit={submitHandler}>
+      <form className={styles.form} onSubmit={submitHandler}>
         <input
           onChange={inputHandler}
           type="text"

@@ -2,14 +2,12 @@
     height: 60px;
     padding: 20px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: start;
     }
     
     .link {
       text-transform: uppercase;
-      width: 200px;
+      width: 100px;
       font-weight: 700;
-      text-decoration: none;
-    
     }
+

@@ -1,0 +1,15 @@
+.form {
+  padding: 10px;
+  margin-left: 5px;
+}
+.form > button {
+  padding: 10px;
+  color: brown;
+  text-transform: uppercase;
+  margin-left: 4px;
+}
+
+.form > input {
+  padding: 10px;
+  margin-left: 5px;
+}

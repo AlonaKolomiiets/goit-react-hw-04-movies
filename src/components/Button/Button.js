@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import styles from "./Button.module.css";
 
 const Button = ({ handleGoBack }) => {
@@ -17,6 +18,10 @@ const Button = ({ handleGoBack }) => {
       </span>
     </button>
   );
+};
+
+Button.propTypes = {
+  handleGoBack: PropTypes.func.isRequired,
 };
 
 export default Button;
