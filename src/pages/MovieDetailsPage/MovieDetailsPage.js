@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense, lazy } from "react";
 import { useHistory, useLocation, useParams, Route } from "react-router-dom";
 import routes from "../../routes";
 import {
@@ -7,11 +7,17 @@ import {
   getMovieDetailsReviews,
 } from "../../helpers/request";
 import Loader from "../../components/Loader/Loader";
-import Cast from "../../components/Cast/Cast";
-import Reviews from "../../components/Reviews/Reviews";
 import MoviePreview from "../../components/MoviePreview/MoviePreview";
 import Button from "../../components/Button/Button";
 import AdditionalInfo from "../../components/AdditionalInfo/AdditionalInfo";
+
+const Cast = lazy(() =>
+  import("../../components/Cast/Cast" /* webpackChunkName: "Cast" */)
+);
+
+const Reviews = lazy(() =>
+  import("../../components/Reviews/Reviews" /* webpackChunkName: "Reviews" */)
+);
 
 const MovieDetailsPage = () => {
   const params = useParams();
@@ -86,14 +92,16 @@ const MovieDetailsPage = () => {
         <>
           <MoviePreview movieDetails={movieDetails} />
           <AdditionalInfo />
-          <Route
-            path={routes.movieCast}
-            render={(props) => <Cast {...props} credits={credits} />}
-          />
-          <Route
-            path={routes.movieDetailsReviews}
-            render={(props) => <Reviews {...props} reviews={reviews} />}
-          />
+          <Suspense fallback={<Loader />}>
+            <Route
+              path={routes.movieCast}
+              render={(props) => <Cast {...props} credits={credits} />}
+            />
+            <Route
+              path={routes.movieDetailsReviews}
+              render={(props) => <Reviews {...props} reviews={reviews} />}
+            />
+          </Suspense>
         </>
       )}
     </>
